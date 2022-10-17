@@ -64,4 +64,6 @@ Notes:
   - cannot create devices, this error but not the solution https://github.com/cilium/cilium/issues/20858
 - cilium-operator:
   - fails to list things at cluster scope, not sure if this matters? solved to give clusterrole power over nodes
+- need to set kubeadm to ignore preflight errors on init (but also maybe join?). `SystemVerification`
+- use flannel not cilium == success
 
