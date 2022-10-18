@@ -22,6 +22,9 @@ const sidebars = {
       items: [
         'build-guide/board-setup',
         'build-guide/host-bootstrapping',
+        'build-guide/check-env',
+        'build-guide/management-cluster',
+        'build-guide/mvm-cluster',
       ],
     },
     {

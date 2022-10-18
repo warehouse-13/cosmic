@@ -1,5 +1,5 @@
 ---
-title: Board setup
+title: Prep the boards
 ---
 
 ### Flash the MicroSDs

@@ -25,7 +25,7 @@ Liquid Metal is a "kubernetes on bare-metal solution" owned by Weaveworks and
 built by OSS contributors. Check out the [Liquid Metal docs][lm-docs] to learn
 more about the components we will be installing.
 
-The reason why Liquid Metal is a hit is because it allows you to use your bare-metal
+One reason why Liquid Metal is a hit is because it allows you to use your bare-metal
 devices to their absolute max. Where normally you would setup a homelab k8s cluster
 with 1 node per Pi board, with Liquid Metal you can cram multiple nodes (within reason)
 onto the same board. It does this by creating MicroVMs, which are just about as
