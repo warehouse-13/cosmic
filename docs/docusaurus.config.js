@@ -9,7 +9,7 @@ const config = {
   title: 'Rpi4-LM',
   tagline: 'Liquid Metal Rasperry Pi Homelab',
   url: 'https://warehouse-13.github.io',
-  baseUrl: '/',
+  baseUrl: '/docs',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo2.svg',
