@@ -12,7 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/DROPLET.svg',
+  favicon: 'img/logo2.svg',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -59,10 +59,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Cosmic',
+        title: 'cosmic',
         logo: {
-          alt: 'LM Logo',
-          src: 'img/DROPLET.svg',
+          alt: 'cosmic logo',
+          src: 'img/logo1.svg',
         },
         items: [
           {
@@ -77,19 +77,6 @@ const config = {
         links: [
           {
             title: 'Github',
-            items: [
-              {
-                label: 'Liquid Metal',
-                href: 'https://github.com/weaveworks-liquidmetal',
-              },
-              {
-                label: 'Author',
-                href: 'https://github.com/Callisto13',
-              },
-            ],
-          },
-          {
-            title: 'Credits',
             items: [
               {
                 label: 'Liquid Metal',

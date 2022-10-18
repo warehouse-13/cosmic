@@ -1,4 +1,4 @@
-# Liquid Metal Website
+# Cosmic docs
 
 This site is built using Docusaurus.
 
@@ -8,8 +8,8 @@ to publish manually.
 Local development:
 
 ```bash
-git clone https://github.com/weaveworks-liquidmetal/site
-cd site
+git clone https://github.com/warehouse-13/cosmic
+cd cosmic/site
 ```
 
 Because I develop on multiple machines over SSH, I have configured the site to run
@@ -25,17 +25,6 @@ npm run start
 Navigate to localhost:3000 (or `http://<device ip>:3000` if you did not change `package.json`).
 
 ## Contributing
-
-Please, please do this :sweat_smile:.
-
-There are so many docs to write and so few hours in the day and I am one person!
-
-So, if you find a typo, instead of opening an issue... why not submit a quick PR?
-
-I have zero experience with JS and React and... stuff, so if anyone wants to improve
-the look and functionality of the site that would be sweet.
-
-Developing the site is pretty easy:
 
 - Fork this repo
 - Create a feature branch
