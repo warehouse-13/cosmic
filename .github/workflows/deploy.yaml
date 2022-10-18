@@ -21,7 +21,7 @@ jobs:
         npm ci
         npm run build
   release:
-    if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'Callisto13' }}
+    if: ${{ github.event_name != 'pull_request' && github.repository_owner == 'warehouse-13' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
