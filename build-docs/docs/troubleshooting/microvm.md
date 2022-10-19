@@ -29,34 +29,13 @@ Steps:
 	to a wired parent interface. (_Note: I have really struggled to get a wire-backed bridge
 	to work at all, so this may just not be a thing you can do with a Pi_ :woman-shrugging:_.
 	I am VERY happy to be corrected on this!_)
-- Last but not least: try turning it off and on again. Delete the wired interface
-	**making sure you are SSH-ed over a different interface first! That is such an annoying
-	thing to forget!**. Then simply bring the interface back.
-	Using `nmcli` as an example:
-	```bash
-	nmcli connection show
-	NAME                UUID                                  TYPE      DEVICE
-	Wired connection 1  8c190b45-e190-3454-aef8-155f29ccda56  ethernet  eth0
-	BT-6MCW5R           44c19953-95d8-4761-b935-d7fb183623ec  wifi      wlan0
-
-	nmcli connection delete 8c190b45-e190-3454-aef8-155f29ccda56
-	Connection 'Wired connection 1' (8c190b45-e190-3454-aef8-155f29ccda56) successfully deleted.
-
-	nmcli connection add type ethernet autoconnect yes con-name eth0 ifname eth0
-	Connection 'eth0' (1070923d-0fa3-408c-bb76-df3b09da8746) successfully added.
-
-	nmcli connection show
-	NAME       UUID                                  TYPE      DEVICE
-	eth0       1070923d-0fa3-408c-bb76-df3b09da8746  ethernet  eth0
-	BT-5MCW5R  44c19953-95d8-4761-b935-d7fb183623ec  wifi      wlan0
-	```
-
-	It seems that the name of the interface shown here, which honestly I assumed was
-	just a label, seems to impact whether the `eth0` interface is usable, which is really
-	weird so make sure you create the interface with matching `name` and `device` indentifiers.
-
-	If it still doesn't work after this, try taking the interface down and up a
-	couple more times. `ip link set down eth0 && ip link set up eth0`. No joke.
+- On the board run `tcpdump -i eth0 -vv` while creating a MicroVM. Look for dhcp
+	`Discover`, `Offer`, `Request` and `ACK` messages. If you see none, it means the
+	MicroVM cannot reach your dhcp server at all. If you see the first 2 but not the last,
+	it means the dhcp server has offered an IP by the client for some reason does not
+	receive or accept that. From here you are in the fun world of debugging dhcp
+	and network errors. (_Honestly after a couple of hours of this I table-flipped
+	and re-flashed my SD card with Ubuntu 20.04 which worked and I called it a day_.)
 
 ### Cannot SSH into MicroVM
 

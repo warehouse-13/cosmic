@@ -23,10 +23,10 @@ mkdir -p ~/.cluster-api
 
 Set the CAPMVM version in your environment. First [check for the
 version which is compatible][compat] with the version of `flintlockd` your boards are running.
-In my case I am using Flintlock `v0.4.0`, so the latest compatible CAPMVM version is `v0.8.0`.
+In my case I am using Flintlock `v0.4.0`, so the latest compatible CAPMVM version is `v0.7.0`.
 
 ```bash
-export CAPMVM_VERSION=v0.8.0
+export CAPMVM_VERSION=v0.7.0
 ```
 
 Write the installation information to a `clusterctl` config file in the `cluster-api`

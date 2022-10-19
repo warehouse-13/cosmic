@@ -36,11 +36,6 @@ If you are going from scratch, this should get you started:
 	as you aqcuire more boards.
 - A way to flash microSD cards. If your PC/laptop does not have an SD port, you can
 	get tiny [USB card reader][sd-reader] which works very well.
-- A monitor and cable. Just one of these are necessary as after setup we won't need
-	them. Note the Model 4B takes a Micro-HDMI: I got an [adapter][hdmi-adapter] to use with one
-	of my HDMI-to-HDMI cables.
-- USB keyboard and mouse. Again, just need the one for initial setup. Wireless ones
-	could also work but I have not tried.
 
 ### Upgrades
 - I did start off with a [PoE hat][poe] per board, but one of them had the worst coil
@@ -48,6 +43,17 @@ If you are going from scratch, this should get you started:
 	stand for more than 30 seconds, so I scrapped that plan. If you go for this, you'll
 	also need a [PoE enabled switch][switch].
 - For faster writing and just more space, swap out the microSDs for actual SSDs.
+
+### Optional
+You may want some accessories depending on the OS image you choose for your boards.
+
+- A monitor and cable. Just one of these are necessary as after setup you won't need
+	them. Note the Model 4B takes a Micro-HDMI: I got an [adapter][hdmi-adapter] to use with one
+	of my HDMI-to-HDMI cables.
+- USB keyboard and mouse. Again, just need the one for initial setup. Wireless ones
+	could also work but I have not tried.
+
+![rig](/img/rig2.jpg)
 
 ### Credits
 

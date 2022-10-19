@@ -31,19 +31,20 @@ kvm-ok
 # KVM acceleration can be used
 ```
 
-Install extra linux modules for pi:
-
-```bash
-sudo apt install linux-modules-extra-raspi
-```
-
-Enable `macvtap` device creation:
+Load the `macvlan` (`macvtap`) module:
 
 ```bash
 modprobe macvlan
 lsmod | grep macvlan
 # macvlan                36864  1 macvtap
 ```
+
+If you don't have the module (likely on ubuntu 22.04), install extra linux modules for pi:
+
+```bash
+sudo apt install linux-modules-extra-raspi
+```
+
 
 :::tip
 If `modprobe macvlan` errors with

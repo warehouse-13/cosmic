@@ -17,6 +17,8 @@ try to publish changes. If you come across something which could be better, feel
 free to contribute! :purple_heart:
 :::
 
+![rig](/img/rig1.jpg)
+
 ### Liquid Metal?
 
 TL;DR:
