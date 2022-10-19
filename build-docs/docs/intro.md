@@ -2,6 +2,8 @@
 title: Liquid Metal RPi Homelab
 ---
 
+Take your Kubernetes homelab cluster to the next level with Liquid Metal MicroVMs.
+
 :::tip Info
 This rig was built quickly and under budget for a Kubernetes community days
 demo. I am sharing it so that other people can have fun with the experiment.
