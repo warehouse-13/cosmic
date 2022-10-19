@@ -11,7 +11,7 @@ Set some config options in the environment
 ```bash
 export CLUSTER_NAME=lm-pi-homelab # or whatever
 export CONTROL_PLANE_MACHINE_COUNT=1
-export WORKER_MACHINE_COUNT=5 # don't go crazy here, consider your personal capacity
+export WORKER_MACHINE_COUNT=3 # don't go crazy here, consider your personal capacity
 export KUBERNETES_VERSION=1.21.8
 export MVM_KERNEL_IMAGE=docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
 export MVM_ROOT_IMAGE=docker.io/claudiaberesford/capmvm-kubernetes-arm:1.21.8 # this tag should match the KUBERNETES_VERSION above
@@ -242,14 +242,14 @@ lm-pi-homelab-control-plane-hdpkj   Ready    control-plane,master   4m35s   v1.2
 lm-pi-homelab-md-0-9444f            Ready    <none>                 3m41s   v1.21.8
 lm-pi-homelab-md-0-bdqwj            Ready    <none>                 3m43s   v1.21.8
 lm-pi-homelab-md-0-gfgbq            Ready    <none>                 3m41s   v1.21.8
-lm-pi-homelab-md-0-pxkk6            Ready    <none>                 3m41s   v1.21.8
-lm-pi-homelab-md-0-qpzwn            Ready    <none>                 3m43s   v1.21.8
 ```
 
 </details>
 
 From there you can use the cluster as you would normally. The management `kind` cluster can
 be thrown away if you like.
+
+![running cluster](/img/running-cluster.png)
 
 [kvip]: https://kube-vip.io/
 [net]: /docs/tutorial-basics/network
