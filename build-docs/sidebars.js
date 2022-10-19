@@ -19,6 +19,9 @@ const sidebars = {
     {
       type: 'category',
       label: 'Build guide',
+      link: {
+        type: 'generated-index',
+      },
       items: [
         'build-guide/board-setup',
         'build-guide/host-bootstrapping',
@@ -35,6 +38,8 @@ const sidebars = {
       },
       items: [
         'troubleshooting/flintlock',
+        'troubleshooting/microvm',
+        'troubleshooting/capmvm',
       ],
     },
   ],

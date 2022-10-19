@@ -2,6 +2,8 @@
 title: Create the Pi cluster
 ---
 
+This is the final step for this homelab.
+
 ## Configure
 
 Set some config options in the environment

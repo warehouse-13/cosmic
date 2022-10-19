@@ -2,6 +2,8 @@
 title: Prep the boards
 ---
 
+This is the initial setup for Raspberry Pi, regardless of how you are going to use it.
+
 ### Flash the MicroSDs
 
 Follow [this guide][flash-guide] to make your microSD cards bootable to Ubuntu.
