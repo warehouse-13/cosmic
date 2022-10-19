@@ -1,0 +1,28 @@
+{
+    "id": "mvm0",
+    "namespace": "ns0",
+    "vcpu": 2,
+    "memory_in_mb": 2048,
+    "kernel": {
+      "image": "docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77",
+      "filename": "boot/image",
+      "add_network_config": true
+    },
+    "root_volume": {
+        "id": "root",
+        "is_read_only": false,
+        "source": {
+          "container_source": "docker.io/claudiaberesford/capmvm-kubernetes-arm:1.21.8"
+        }
+      },
+    "interfaces": [
+      {
+        "device_id": "eth1",
+        "type": 0
+      }
+    ],
+    "metadata": {
+      "meta-data": "aW5zdGFuY2VfaWQ6IG5zMC9tdm0wCmxvY2FsX2hvc3RuYW1lOiBtdm0wCnBsYXRmb3JtOiBsaXF1aWRfbWV0YWwK",
+      "user-data": "I2Nsb3VkLWNvbmZpZwpob3N0bmFtZTogbXZtMAp1c2VyczoKLSBuYW1lOiByb290CiAgc3NoX2F1dGhvcml6ZWRfa2V5czoKICAtIHwKICAgIHNzaC1lZDI1NTE5IEFBQUFDM056YUMxbFpESTFOVEU1QUFBQUlMQWtHZFQ1ZmprN3VOb0ErYmtHZlNZVUZuTEZVb2xaTkxOWjR4MWNpREcvIGNsYXVkaWFAd2VhdmUud29ya3MKZmluYWxfbWVzc2FnZTogVGhlIExpcXVpZCBNZXRhbCBib290ZWQgc3lzdGVtIGlzIGdvb2QgdG8gZ28gYWZ0ZXIgJFVQVElNRSBzZWNvbmRzCmJvb3RjbWQ6Ci0gbG4gLXNmIC9ydW4vc3lzdGVtZC9yZXNvbHZlL3N0dWItcmVzb2x2LmNvbmYgL2V0Yy9yZXNvbHYuY29uZgo="
+    }
+}

@@ -202,12 +202,13 @@ The Liquid Metal booted system is good to go after $UPTIME seconds
 :::info
 The first time you do this may take a while. Depending on what RAM you have and what
 storage you are using, containerd will need time to download, unpack and snapshot
-the kernel and OS images. Subsequent creates will be much faster.
+the kernel and OS images. No boot logs will be written until **after** that.
+Subsequent creates will be much faster.
 :::
 
 
-If you don't see that message, or there isn't anything in that file at all,
-go to the [Troubleshooting page][trouble].
+If you don't see that message, or there isn't anything in that file at all after about
+5 mins, go to the [Troubleshooting page][trouble].
 
 ## Check what was created
 
