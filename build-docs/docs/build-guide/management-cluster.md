@@ -5,13 +5,22 @@ title: Set up the management cluster
 The rest of this will be run from your **admin machine**. This can be macOS or Linux,
 basically wherever you can run docker (although I have not tested on Windows, should be fine tho).
 
-## CAPI and CAPMVM
+## Kind
 
 The Pi cluster will be created by [CAPI][capi]. We'll have the management cluster
 on your admin machine. You can use a more permanent cluster if you like, but
 here I am just using `kind`.
 
 Install [kind][kind], [docker][docker] and [clusterctl][clusterctl].
+
+Create a new `kind` cluster.
+
+```bash
+kind create cluster --name lm-lab-manage
+```
+
+## CAPI and CAPMVM
+
 
 The Liquid Metal infra provider is [Cluster API Provider MicroVM (CAPMVM)][capmvm].
 

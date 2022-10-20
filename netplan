@@ -1,0 +1,12 @@
+network:
+	version: 2
+	ethernets:
+		eth0:
+			dhcp4: true
+			optional: true
+	vlans:
+		eth0.100:
+			id: 100
+			link: eth0
+			addresses: [192.168.10.4/25]
+
