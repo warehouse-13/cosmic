@@ -276,12 +276,7 @@ In this case we are relying on your router's DHCP pool, so you can log in there
 to see what was set.
 
 :::note
-I would much rather have used `virsh` to create a bridge interface with a separate
-DHCP pool, but I just could not get that to work on my boards :woman-shrugging:.
-You are free to have a go yourself, just edit `/etc/opt/flintlockd/config.yaml`
-and add `bridge-name: <bridge>`, restart the `flintlockd.service` and edit the
-`mvm-spec.json` to create the `eth1` interface with `"type": 1`. Or you can pass
-`--bridge-name <bridge>` to `provision.sh` if you have not run that yet.
+This process is different if you copied my exact setup, see [that page][demo] for details.
 :::
 
 ## SSH into the MicroVM
@@ -308,3 +303,4 @@ the cluster from your **admin** machine.
 
 [ht]: https://github.com/warehouse-13/hammertime
 [trouble]: /docs/category/troubleshooting/
+[demo]: /docs/build-guide/demo-build

@@ -50,8 +50,7 @@ You may want some accessories depending on the OS image you choose for your boar
 - [A managed switch[m-switch]. I needed one for the demo so I could have more control over
 	the network (VLAN) my MicroVMs were created in, and so I could watch dhcp lease assignment.
 	This is not strictly necessary in a homelab setup, as the MicroVMs will be able to
-	get addresses from your router. (You could also set up a bridge network with a pool,
-	but I could not get that to work here.)
+	get addresses from your router.
 - A monitor and cable. Just one of these are necessary as after setup you won't need
 	them. Note the Model 4B takes a Micro-HDMI: I got an [adapter][hdmi-adapter] to use with one
 	of my HDMI-to-HDMI cables.

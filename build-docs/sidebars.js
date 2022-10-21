@@ -28,6 +28,7 @@ const sidebars = {
         'build-guide/check-env',
         'build-guide/management-cluster',
         'build-guide/mvm-cluster',
+        'build-guide/demo-build',
       ],
     },
     {

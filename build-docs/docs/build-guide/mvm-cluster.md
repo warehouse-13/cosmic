@@ -27,7 +27,7 @@ I don't have time to work on something better. I will update when I can. If you 
 something, please share.
 :::
 
-If you were able to get bridge mode working, then use an ip from outside _that_ range
+If you copied my [demo setup][demo], then use an ip from outside _that_ range
 instead.
 
 ```bash
@@ -131,55 +131,6 @@ spec:
 
 </details>
 
-:::note
-If you were able to get bridge mode working, you will also need to further edit the 2
-`MicrovmMachineTemplate` specs at `spec.template.spec.networkInterfaces[0].type`.
-
-<details><summary>Expand to see bridge mode changes</summary>
-
-```yaml
-...
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
-kind: MicrovmMachineTemplate
-metadata:
-  name: lm-pi-homelab-control-plane
-  namespace: default
-spec:
-  template:
-    spec:
-      kernel:
-        filename: boot/image
-        image: docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
-      kernelCmdline: {}
-      memoryMb: 2048
-      networkInterfaces:
-      - guestDeviceName: eth1
-        type: tap # <- this should be tap
-...
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
-kind: MicrovmMachineTemplate
-metadata:
-  name: lm-pi-homelab-md-0
-  namespace: default
-spec:
-  template:
-    spec:
-      kernel:
-        filename: boot/image
-        image: docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
-      kernelCmdline: {}
-      memoryMb: 2048
-      networkInterfaces:
-      - guestDeviceName: eth1
-        type: tap # <- this should be tap
-...
-```
-
-</details>
-:::
-
 Once you have made those changes, save and close the file.
 
 ## Apply
@@ -251,7 +202,13 @@ be thrown away if you like.
 
 ![running cluster](/img/running-cluster.png)
 
+:::tip
+When/if you want to delete your Raspberry Pi cluster, DO NOT `kubectl delete -f cluster.yaml`.
+Run `kubectl delete cluster $CLUSTER_NAME`.
+:::
+
 [kvip]: https://kube-vip.io/
 [net]: /docs/tutorial-basics/network
 [mmt]: https://github.com/weaveworks-liquidmetal/cluster-api-provider-microvm/blob/42196e0bf388235f39211769cb8e5c0049172c10/api/v1alpha1/types.go#L103-L105
 [images]: https://github.com/weaveworks-liquidmetal/image-builder
+[demo]: /docs/build-guide/demo-build

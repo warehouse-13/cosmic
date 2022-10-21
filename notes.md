@@ -3,20 +3,21 @@
 - dell
   - dhcp server
     - `/etc/dhcp/dhcpd.conf`
+    - `/etc/default/isc-dhcp-server`
     - dhcp-leaase-list
     - vip ip `192.168.10.25`
+  - vlan `192.168.10.2` enxf8e43b5d.100
+    - `nmcli con add type vlan con-name enx.100 dev enxf8e43b5d5048 id 100 ip4 192.168.10.2/25`
   - nat rules (same as equinix)
     ```
-    firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i enx.100 -o enxf8e43b5d5048 -j ACCEPT
+    firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i enxf8e43b5d.100 -o enxf8e43b5d5048 -j ACCEPT
     firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -o enxf8e43b5d5048 -j MASQUERADE
     firewall-cmd --reload
 
-    firewall-cmd --permanent --direct --remove-rule ipv4 filter FORWARD 0 -i enx.100 -o enxf8e43b5d5048 -j ACCEPT
+    firewall-cmd --permanent --direct --remove-rule ipv4 filter FORWARD 0 -i enxf8e43b5d.100 -o enxf8e43b5d5048 -j ACCEPT
     firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -o enxf8e43b5d5048 -j MASQUERADE
     firewall-cmd --reload
     ```
-  - vlan `192.168.10.2` enx.100
-    - `nmcli con add type vlan con-name enx.100 dev enxf8e43b5d5048 id 100 ip4 192.168.10.2/25`
 - board rp0
   - vlan `192.168.10.3` eth0.100
   - ubuntu 2204

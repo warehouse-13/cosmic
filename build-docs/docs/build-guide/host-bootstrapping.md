@@ -16,7 +16,8 @@ For more info on each component check out the [Liquid Metal docs site][lm-docs].
   for each board, you _could_ skip the `--dev` flag in the command below.
 - Each MicroVM is created with 2 network interfaces. One of those is a **macvtap**
   interface in bridge mode which gives the MicroVM its network access. This is something
-  needs to be enabled in the host kernel.
+  needs to be enabled in the host kernel. (Flintlock also allows for a standard bridge/tap
+  setup, but we are going with `macvtap` here.
 
 ## Install
 
@@ -118,5 +119,12 @@ certs if you want later. Check out the [flintlock security docs][sec-docs] for i
 ```
 </details>
 
+## Optional: VLAN
+
+The above instructions give you the most basic setup. If you want more control
+and observability of the network that the MicroVMs are created in, you can [copy my
+_exact_ demo setup and create a VLAN][demo].
+
 [lm-docs]: https://weaveworks-liquidmetal.github.io/site/
 [sec-docs]: https://weaveworks-liquidmetal.github.io/site/docs/guides/authn/
+[demo]: /docs/build-guide/demo-build

@@ -7,8 +7,7 @@ Understanding common MicroVM boot/run errors
 ### MicroVM network configuration failure/timeout
 
 When MicroVMs boot, they will be assigned some IPs from wherever you have a dhcp server.
-This may be your home router or a dedicated pool you have configured for a bridge
-or VLAN.
+This may be your home router or a dedicated pool you have configured for a VLAN.
 
 If you see the following logs, then it means this has failed.
 
