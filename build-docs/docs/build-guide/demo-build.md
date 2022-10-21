@@ -46,7 +46,7 @@ nmcli con add type vlan con-name enx.100 dev enxf8e43b5d5048 id 100 ip4 192.168.
 
 Creates VLAN device `enxf8e43b5d.100`.
 
-:::note
+:::info
 I prefer to use `ip` or `netplan` for this but Ubuntu 2204 makes some annoying
 decisions around networking tools which I could not be bothered to argue with.
 
@@ -59,6 +59,15 @@ ip link add link eth0 name eth0.100 type vlan id 100
 ip addr add "192.168.10.2/25" dev eth0.100
 ip -d link set dev eth0.100 up
 ```
+
+Interface names have a length limit (except for the ones generated at boot, for
+whatever reason). It is common to pick a VLAN interface name based on the parent
+interface (eg. if you are creating a VLAN device linked to `eth0`, most docs would
+tell you call it `eth0.100`). This is fine if the parent has a nice, short name,
+but often they don't and you may end up with an `invalid arguement` error.
+
+The VLAN device name can be anything so pick something shorter. If you want it to
+be obvious what it is linked to, just abbreviate the name of the parent.
 :::
 
 ### DHCP server
