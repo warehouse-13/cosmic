@@ -38,9 +38,8 @@ If you are going from scratch, this should get you started:
 	get tiny [USB card reader][sd-reader] which works very well.
 
 ### Upgrades
-- I did start off with a [PoE hat][poe] per board, but one of them had the worst coil
-	whine (apparently this is a known thing :woman-shrugging:) which I could barely
-	stand for more than 30 seconds, so I scrapped that plan. If you go for this, you'll
+- I used a [PoE hat][poe] per board so I had fewer wires to deal with. The fans on this
+	are louder than the ones I got with the case, but the setup is neater. If you go for this, you'll
 	also need a [PoE enabled switch][switch].
 - For faster writing and just more space, swap out the microSDs for actual SSDs.
 
