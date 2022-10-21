@@ -97,6 +97,8 @@ sed -i "s/INTERFACESv4.*/INTERFACESv4=\"enxf8e43b5d.100\"/g" /etc/default/isc-dh
 systemctl restart isc-dhcp-server.service
 ```
 
+Leases can be viewed with `dhcp-lease-list`.
+
 ### NAT forwarding
 
 To make sure addresses which come up in the `192.168.10.0/25` dhcp range can access
