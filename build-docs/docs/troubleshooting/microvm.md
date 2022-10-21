@@ -41,3 +41,23 @@ Steps:
 - Check that you set a public SSH in the spec `user-data`.
 - Check the `firecracker.stdout` boot logs of the MicroVM to make sure you have
 	the correct IP, or that one has been set at all (see the above section).
+
+### MicroVM has not started
+
+If you create a MicrmVM but cannot see a `firecracker` process or the boot logs
+at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.stdout` are empty, try these steps:
+
+- Look at `journalctl -fu flintlockd.service` and for the line:
+	```
+	"finished executing plan" controller=microvm execution_id=UID execution_time=4m3.498577899s num_steps=6 plan_name=microvm_create_update
+	```
+	If this is not present, find what the last action for that UID was.
+	:::note
+	On the first create with a new kernel or OS image, it can take a while for containerd
+	to pull it down.
+	:::
+- Check the MicroVM error logs at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.stderr`
+- Check the `firecracker` logs at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.log`
+
+If you are using ARM images, ensure that you have updated the `kernel.filename` in the
+manifest to be `boot/image`. For `x86` this should be `boot/vmlinux`.

@@ -105,7 +105,7 @@ MicroVM.
 ...
 networkInterfaces:
 - guestDeviceName: eth1
-  type: macvtap
+  type: tap
 	overrides:
 		bridgeName: foobar
 ...
