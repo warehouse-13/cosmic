@@ -26,8 +26,8 @@ If you are going from scratch, this should get you started:
 	no promises.
 - [Power cable per Pi][usb-c]. 4Bs use USB-C, earlier versions use micro-USB.
 - USB power supply with enough ports for each boards. While developing I plugged mine
-	into my Dell XPS, for the demo I used an [Anker PowerCore 20100][anker] which is
-	a beast and can run 2 boards for ~24hrs.
+	into my Dell XPS or an [Anker PowerCore 20100][anker] which is
+	a beast and can run 2 boards for ~24hrs. For the demo I used a [PoE HAT][poe].
 - [microSD][microsd] per board. I used 32GB ones, but you can get away with a 16.
 - Ethernet cable per board. I use some [Cat 5e][ethernet] ones which I had in a wire drawer.
 - Case. Strictly speaking this is a 'nice to have'. But you can get some very cute, very
