@@ -38,7 +38,7 @@ Steps:
 
 ### Cannot SSH into MicroVM
 
-- Check that you set a public SSH in the spec `user-data`.
+- Check that you set a public SSH key in the spec `user-data` or the cluster manifest.
 - Check the `firecracker.stdout` boot logs of the MicroVM to make sure you have
 	the correct IP, or that one has been set at all (see the above section).
 

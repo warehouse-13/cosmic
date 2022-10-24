@@ -46,14 +46,16 @@ If you are going from scratch, this should get you started:
 ### Optional
 You may want some accessories depending on the OS image you choose for your boards.
 
-- [A managed switch[m-switch]. I needed one for the demo so I could have more control over
+- [A managed switch][m-switch]. I needed one for the demo so I could have more control over
 	the network (VLAN) my MicroVMs were created in, and so I could watch dhcp lease assignment.
 	This is not strictly necessary in a homelab setup, as the MicroVMs will be able to
 	get addresses from your router.
-- A monitor and cable. Just one of these are necessary as after setup you won't need
+- (If you flash your boards with a Desktop image.) A monitor and cable.
+	Just one of these are necessary as after setup you won't need
 	them. Note the Model 4B takes a Micro-HDMI: I got an [adapter][hdmi-adapter] to use with one
 	of my HDMI-to-HDMI cables.
-- USB keyboard and mouse. Again, just need the one for initial setup. Wireless ones
+- (Again only necessary if you install Desktop images on your boards.)
+	USB keyboard and mouse. Again, just need the one for initial setup. Wireless ones
 	could also work but I have not tried.
 
 ![rig](/img/rig2.jpg)
