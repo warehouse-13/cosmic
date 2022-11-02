@@ -12,12 +12,12 @@ For more info on each component check out the [Liquid Metal docs site][lm-docs].
 - **Containerd** is used to provide root volumes and kernel binaries (from snapshots of images)
   to the MicroVMs, as well as to store state.
 - Containerd uses **devicemapper** to store images and snapshots. In this build I
-  am using a development setup with **thinpool** storage. If you have spare disks
+  am using a development setup with **thinpool** storage. If you have spare disks (as in additional to any boot disk)
   for each board, you _could_ skip the `--dev` flag in the command below.
 - Each MicroVM is created with 2 network interfaces. One of those is a **macvtap**
   interface in bridge mode which gives the MicroVM its network access. This is something
   needs to be enabled in the host kernel. (Flintlock also allows for a standard bridge/tap
-  setup, but we are going with `macvtap` here.
+  setup, but we are going with `macvtap` here.)
 
 ## Install
 

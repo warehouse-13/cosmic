@@ -37,7 +37,7 @@ make sure it is connected to the same network. (I will call this machine the
 
 Discover which internal LAN IPs your boards are running on. You can do this by one of the following methods:
 - Looking at your router DHCP leases
-- Plugging the boards back into the monitor, opening a terminal and running `hostname -I`
+- Attaching the boards to a monitor, opening a terminal and running `hostname -I`
   (it will likely be the first one), and making a note of it
 - Running `arp -na | grep -i  "b8:27:eb\|dc:a6:32\|e4:5f:01"` in your admin machine.
   Any board addresses will be listed at the start of each line. _Note: if you are connected

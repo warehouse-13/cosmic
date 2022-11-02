@@ -21,12 +21,6 @@ CAPMVM will use [`kube-vip`][kvip] to assign a virtual IP to the cluster.
 Choose an address from **outside** your router's DHCP pool. Mine runs from `192.168.1.64` to `.244`
 so I will use `192.168.1.63`.
 
-:::note
-This is not ideal, and I really want a different solution, but at the time of writing
-I don't have time to work on something better. I will update when I can. If you find
-something, please share.
-:::
-
 If you copied my [demo setup][demo], then use an ip from outside _that_ range
 instead.
 
@@ -77,6 +71,7 @@ spec:
   placement:
     staticPool:
       hosts:
+      # add your boards here
       - controlplaneAllowed: true
         endpoint: 192.168.1.216:9090
       - controlplaneAllowed: true
@@ -93,7 +88,8 @@ put it there. Sorry I have not had time to rebuild and move that yet, on my list
 We need to edit the section of the manifest which points to that binary (at some point
 these more fiddly bits of config will go).
 
-Edit the **2/two** `MicrovmMachineTemplate` specs at `spec.template.spec.kernel.filename`:
+Edit the **2/two** `MicrovmMachineTemplate` specs at `spec.template.spec.kernel.filename`
+to be `boot/image`:
 
 <details><summary>Expand to see kernel binary path changes</summary>
 
@@ -109,7 +105,7 @@ spec:
   template:
     spec:
       kernel:
-        filename: boot/image
+        filename: boot/image # match this line
         image: docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
       kernelCmdline: {}
 ...
@@ -123,7 +119,7 @@ spec:
   template:
     spec:
       kernel:
-        filename: boot/image
+        filename: boot/image # match this line
         image: docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
       kernelCmdline: {}
 ...
@@ -204,11 +200,11 @@ be thrown away if you like.
 
 :::tip
 When/if you want to delete your Raspberry Pi cluster, DO NOT `kubectl delete -f cluster.yaml`.
-Run `kubectl delete cluster $CLUSTER_NAME`.
+Run `kubectl delete cluster $CLUSTER_NAME` instead.
 :::
 
 [kvip]: https://kube-vip.io/
 [net]: /docs/tutorial-basics/network
 [mmt]: https://github.com/weaveworks-liquidmetal/cluster-api-provider-microvm/blob/42196e0bf388235f39211769cb8e5c0049172c10/api/v1alpha1/types.go#L103-L105
 [images]: https://github.com/weaveworks-liquidmetal/image-builder
-[demo]: /docs/build-guide/demo-build
+[demo]: /docs/build-guide/demo-build/#dhcp-server

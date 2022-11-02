@@ -72,6 +72,10 @@ be obvious what it is linked to, just abbreviate the name of the parent.
 
 ### DHCP server
 
+I started a new dhcp server in my VLAN to respond to address requests from the MicroVMs.
+
+I set the cluster `vip` address to be from outside the pool `192.168.10.25`.
+
 ```bash
 apt update
 apt install -y isc-dhcp-server

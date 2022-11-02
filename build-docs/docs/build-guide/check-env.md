@@ -91,8 +91,10 @@ this containerd instance does not mix with any existing service, although it cou
 use an existing one fine. Your boards probably don't have containerd running already
 anyway, so if you like you can remove the `containerd-dev` service and either reinstall
 the service without the `-dev` tag by running `./provision.sh containerd`, or just
-use an existing service if you have it. Either way you'll need to update the reference
-to the socket that `flintlockd` has at `/etc/opt/flintlockd/config.yaml` and restart `flintlockd`.
+use an existing service if you have it. Either way you'll need to:
+
+- update the reference to the socket that `flintlockd` has at `/etc/opt/flintlockd/config.yaml` and restart `flintlockd`
+- ensure you have the correct thinpool name in the containerd confid
 :::
 
 Containerd's config file will be at `/etc/containerd/config-dev.toml`.
@@ -286,6 +288,27 @@ can SSH into the MicroVM.
 
 You can get the IP from either your DHCP logs, or from the MicroVM boot logs at
 `firecracker.stdout`.
+
+<details><summary>Sample network info from `firecracker.stdout`</summary>
+
+You're looking for something like this. Here the IP `192.168.10.174` associated
+with `eth0` is my MicroVM's address.
+
+```
++--------+------+-------------------------------------------+---------------+--------+-------------------+
+| Device |  Up  |                  Address                  |      Mask     | Scope  |     Hw-Address    |
++--------+------+-------------------------------------------+---------------+--------+-------------------+
+|  eth0  | True |              192.168.10.174               | 255.255.255.0 | global | 3e:8e:97:12:f8:95 |
+|  eth0  | True | 2a00:23c6:990:5d01:3c8e:97ff:fe12:f895/64 |       .       | global | 3e:8e:97:12:f8:95 |
+|  eth0  | True |        fe80::3c8e:97ff:fe12:f895/64       |       .       |  link  | 3e:8e:97:12:f8:95 |
+|  eth1  | True |                169.254.0.1                |  255.255.0.0  | global | aa:ff:00:00:00:01 |
+|  eth1  | True |          fe80::a8ff:ff:fe00:1/64          |       .       |  link  | aa:ff:00:00:00:01 |
+|   lo   | True |                 127.0.0.1                 |   255.0.0.0   |  host  |         .         |
+|   lo   | True |                  ::1/128                  |       .       |  host  |         .         |
++--------+------+-------------------------------------------+---------------+--------+-------------------+
+```
+
+</details>
 
 There won't be anything interesting to see really, it's just a VM, but if something
 is going wrong it is useful to be able to get in.

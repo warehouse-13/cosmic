@@ -28,7 +28,7 @@ You can check this with `dmsetup ls`. It should return at least one line:
 flintlock-dev-thinpool  (253:0)
 ```
 
-The loop-backed thinpool will not survive restarts, to you'll need
+The loop-backed thinpool will not survive restarts, so you'll need
 to recreate this whenever you reboot.
 
 To remedy:

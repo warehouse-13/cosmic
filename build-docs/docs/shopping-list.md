@@ -20,7 +20,7 @@ that you plan to re-use, here is a list of the base requirements for this homela
 If you are going from scratch, this should get you started:
 
 - [Raspberry Pi board(s)][4b] with minimum 4GB RAM.
-	(2+ is cooler but I know how hard it is to get these nowadays. I spent a day
+	(2 or more boards is cooler but I know how hard it is to get these nowadays. I spent a day
 	aggressively sniping people on eBay to get mine.)
 	I have only tested on 4B Models but I guess in a pinch a 3B _might_ be okay, but
 	no promises.
