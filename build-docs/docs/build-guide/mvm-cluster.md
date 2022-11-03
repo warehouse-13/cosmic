@@ -198,10 +198,14 @@ be thrown away if you like.
 
 ![running cluster](/img/running-cluster.png)
 
-:::tip
+## Delete
+
 When/if you want to delete your Raspberry Pi cluster, DO NOT `kubectl delete -f cluster.yaml`.
-Run `kubectl delete cluster $CLUSTER_NAME` instead.
-:::
+Instead run:
+
+```bash
+kubectl delete cluster $CLUSTER_NAME
+```
 
 [kvip]: https://kube-vip.io/
 [net]: /docs/tutorial-basics/network

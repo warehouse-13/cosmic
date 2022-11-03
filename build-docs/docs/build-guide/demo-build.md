@@ -125,6 +125,12 @@ firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -o enxf8e43b
 firewall-cmd --reload
 ```
 
+Check the rules with:
+
+```bash
+firewall-cmd --direct --get-all-rules
+```
+
 ## Rp0 (ubuntu 2204)
 
 ### VLAN
