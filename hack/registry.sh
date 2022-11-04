@@ -23,15 +23,5 @@ start_registry() {
 	fi
 }
 
-load_image() {
-	local image="$1"
-	local tag="${image##*/}"
-
-	docker pull "$image"
-
-  docker tag "$image" "${REG_ADDRESS}:${REG_PORT}/${tag%@*}"
-  docker push "${REG_ADDRESS}:${REG_PORT}/${tag%@*}"
-}
-
 edit_daemon
 start_registry

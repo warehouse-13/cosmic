@@ -3,7 +3,6 @@
 REG_ADDRESS='192.168.10.2'
 REG_PORT='5001'
 
-
 configure_daemon() {
 	cat <<EOF >/etc/docker/daemon.json
 {

@@ -6,6 +6,8 @@ The final pieces if you want to copy exactly what I had on stage.
 
 ![](/img/IMG_1249.jpg)
 
+## Gear
+
 - 2 x Rpi4 4GB RAM
 - 2 x 32GB microSD
   - 1 With Ubuntu 2204, the other with 2004 (I prefer 2004 for this but did not
@@ -74,8 +76,6 @@ be obvious what it is linked to, just abbreviate the name of the parent.
 
 I started a new dhcp server in my VLAN to respond to address requests from the MicroVMs.
 
-I set the cluster `vip` address to be from outside the pool `192.168.10.25`.
-
 ```bash
 apt update
 apt install -y isc-dhcp-server
@@ -100,6 +100,8 @@ sed -i "s/INTERFACESv4.*/INTERFACESv4=\"enxf8e43b5d.100\"/g" /etc/default/isc-dh
 
 systemctl restart isc-dhcp-server.service
 ```
+
+I set the cluster `vip` address to be from outside the pool `192.168.10.25`.
 
 Leases can be viewed with `dhcp-lease-list`.
 
@@ -131,6 +133,152 @@ Check the rules with:
 firewall-cmd --direct --get-all-rules
 ```
 
+### Local image registry
+
+To speed up the demo by about 2 mins (yes I timed it) I ran a local insecure image registry on the Dell.
+
+1. Add `insecure-registries: ["192.168.10.2:5001"]` to `/etc/docker/daemon.json`
+
+    <details><summary>Example</summary>
+
+    ```json
+    {
+        "insecure-registries": ["192.168.10.2:5001"]
+    }
+    ```
+
+    </details>
+1. `systemctl restart docker.service`
+
+1. Start the registry in a docker container on the VLAN address:
+
+  ```bash
+  docker run -d --restart=always -p "192.168.10.2:5001:5000" --name lm-reg registry:2
+  ```
+
+1. Verify on boards that `curl 192.168.10.2:5001/v2/_catalog` returns something.
+
+1. Load the cluster images to the registry. These need to be `arm64` images, so the
+  easy way to do this is upload them from one of the boards (`docker` needed).
+  I ran the following script on `rp0`:
+
+    <details><summary>load-images.sh</summary>
+
+    ```bash
+    #!/bin/bash
+
+    REG_ADDRESS='192.168.10.2'
+    REG_PORT='5001'
+
+    configure_daemon() {
+    	cat <<EOF >/etc/docker/daemon.json
+    {
+    	"insecure-registries": ["$REG_ADDRESS:$REG_PORT"]
+    }
+    EOF
+      systemctl restart docker.service
+    }
+
+    load_image() {
+      local image="$1"
+
+      docker pull "$image"
+
+      docker tag "$image" "${REG_ADDRESS}:${REG_PORT}/${image##*/}"
+      docker push "${REG_ADDRESS}:${REG_PORT}/${image##*/}"
+    }
+
+    configure_daemon
+    load_image "k8s.gcr.io/kube-apiserver:v1.21.14"
+    load_image "k8s.gcr.io/kube-apiserver:v1.21.8"
+    load_image "k8s.gcr.io/kube-controller-manager:v1.21.14"
+    load_image "k8s.gcr.io/kube-controller-manager:v1.21.8"
+    load_image "k8s.gcr.io/kube-scheduler:v1.21.14"
+    load_image "k8s.gcr.io/kube-scheduler:v1.21.8"
+    load_image "k8s.gcr.io/kube-proxy:v1.21.14"
+    load_image "k8s.gcr.io/kube-proxy:v1.21.8"
+    load_image "k8s.gcr.io/pause:3.4.1"
+    load_image "k8s.gcr.io/pause:3.6"
+    load_image "k8s.gcr.io/pause:3.2"
+    load_image "k8s.gcr.io/etcd:3.4.13-0"
+    load_image "k8s.gcr.io/coredns/coredns:v1.8.0"
+    load_image "ghcr.io/kube-vip/kube-vip:v0.4.0"
+    load_image "docker.io/rancher/mirrored-flannelcni-flannel-cni-plugin:v1.1.0"
+    load_image "docker.io/rancher/mirrored-flannelcni-flannel:v0.19.2"
+    ```
+
+    </details>
+
+1. When editing the `cluster.yaml` add/change the following fields:
+
+  <details><summary>cluster.yaml</summary>
+
+  ```yaml
+  ---
+  kind: KubeadmControlPlane
+  spec:
+    kubeadmConfigSpec:
+      files:
+        - path: /etc/containerd/config.toml
+          content: |
+            version = 2
+            [plugins]
+              [plugins."io.containerd.grpc.v1.cri"]
+                sandbox_image = "192.168.10.2:5001/pause:3.2"
+                [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+                  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.10.2:5001"]
+                  endpoint = ["http://192.168.10.2:5001"]
+                [plugins."io.containerd.grpc.v1.cri".registry.configs]
+                  [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.10.2:5001".tls]
+                    insecure_skip_verify = true
+      clusterConfiguration:
+        imageRepository: 192.168.10.2:5001
+        etcd:
+          local:
+            imageRepository: 192.168.10.2:5001
+      initConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+      joinConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+      preKubeadmCommands:
+        - mkdir -p /etc/kubernetes/manifests && ctr images pull --plain-http=true
+          192.168.10.2:5001/kube-vip:v0.4.0 && ctr run --rm --net-host 192.168.10.2:5001/kube-vip:v0.4.0
+          vip /kube-vip manifest pod --arp --interface $(ip -4 -j route list default | jq -r .[0].dev)
+          --address 192.168.10.25 --controlplane --leaderElection > /etc/kubernetes/manifests/kube-vip.yaml &&
+          sed -i 's/ghcr.io\/kube-vip/192.168.10.2:5001/' /etc/kubernetes/manifests/kube-vip.yaml
+  ---
+  kind: KubeadmConfigTemplate
+  spec:
+    template:
+      spec:
+        files:
+          - path: /etc/containerd/config.toml
+            content: |
+              version = 2
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  sandbox_image = "192.168.10.2:5001/pause:3.2"
+                  [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+                    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.10.2:5001"]
+                    endpoint = ["http://192.168.10.2:5001"]
+                  [plugins."io.containerd.grpc.v1.cri".registry.configs]
+                    [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.10.2:5001".tls]
+                      insecure_skip_verify = true
+        joinConfiguration:
+          nodeRegistration:
+            kubeletExtraArgs:
+              pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+  ```
+
+  </details>
+
+  Also the `image` fields in the `flannel` CRS:
+    - `image: 192.168.10.2:5001/mirrored-flannelcni-flannel-cni-plugin:v1.1.0`
+    - `image: 192.168.10.2:5001/mirrored-flannelcni-flannel:v0.19.2`
 ## Rp0 (ubuntu 2204)
 
 ### VLAN
@@ -167,5 +315,7 @@ EOF
 
 netplan apply
 ```
+
+:sparkles:
 
 ![](/img/IMG_1255.jpg)
