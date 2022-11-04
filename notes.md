@@ -1,5 +1,10 @@
 
 ## final setup
+- on board reboot don't forget to
+  - `systemctl stop containerd.service`
+  - `./provision.sh devpool`
+  - `systemctl restart containerd-dev.service`
+  - `systemctl restart flintlockd.service`
 - dell
   - dhcp server
     - `/etc/dhcp/dhcpd.conf`
@@ -18,15 +23,29 @@
     firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -o enxf8e43b5d5048 -j MASQUERADE
     firewall-cmd --reload
     ```
+  - in `/etc/hosts`
+    - `192.168.10.3    rp0`
+    - `192.168.10.4    rp2`
+  - sometimes the ethernet interface comes up without an ip4 for some reason
+    - `nmcli con down ethernet-enxf8e43b5d5048`
+    - `nmcli con delete ethernet-enxf8e43b5d5048`
+    - `nmcli con add type ethernet con-name ethernet-enxf8e43b5d5048 ifname enxf8e43b5d5048 ip4 192.168.1.66/24`
+    - `nmcli con up ethernet-enxf8e43b5d5048`
 - board rp0
   - vlan `192.168.10.3` eth0.100
   - ubuntu 2204
   - network manager (annoying)
     - `nmcli con add type vlan con-name eth0.100 dev eth0 id 100 ip4 192.168.10.3/25`
+  - in `/etc/hosts`
+    - `192.168.10.4    rp2`
+    - `192.168.10.2    192.168.10.2`
 - board rp2
   - vlan `192.168.10.4` eth0.100
   - ubuntu 2004
   - netplan `/etc/netplan/50-cloud-init.yaml`
+  - in `/etc/hosts`
+    - `192.168.10.3    rp0`
+    - `192.168.10.2    192.168.10.2`
 - switch
   - vlan 100
   - ports 1-3, 5. tagged
@@ -102,3 +121,81 @@ Notes:
 - need to set kubeadm to ignore preflight errors on init (but also maybe join?). `SystemVerification`
 - use flannel not cilium == success
 
+## local registry
+- on dell:
+  - add `"insecure-registries" : ["192.168.10.2:5001"]` to `/etc/docker/daemon.json`
+  - `systemctl restart docker.service`
+  - `docker run -d --restart=always -p "192.168.10.2:5001:5000" --name lm-reg registry:2`
+  - example tag image`docker tag quay.io/cilium/cilium 192.168.10.2:5001/cilium`
+  - example load image `docker push 192.168.10.2:5001/cilium`
+- on other machines:
+  - add `192.168.10.2  xps` to `/etc/hosts`
+  - `curl xps:5001/v2/_catalog`
+  - or `curl 192.168.10.2:5001/v2/_catalog`, fine for pull too
+  - example pull image in mvm `ctr -a /run/containerd/containerd.sock image pull --plain-http=true 192.168.10.2:5001/cilium:latest`
+- loading images see `hack/load-images.sh`
+  - should be done on a pi to make sure images are aarch
+  - add `"insecure-registries" : ["192.168.10.2:5001"]` to `/etc/docker/daemon.json`
+- add the following to cluster.yaml
+  ```yaml
+  kind: KubeadmControlPlane
+  spec:
+    kubeadmConfigSpec:
+      files:
+        - path: /etc/containerd/config.toml
+          content: |
+            version = 2
+            [plugins]
+              [plugins."io.containerd.grpc.v1.cri"]
+                sandbox_image = "192.168.10.2:5001/pause:3.2"
+                [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+                  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.10.2:5001"]
+                  endpoint = ["http://192.168.10.2:5001"]
+                [plugins."io.containerd.grpc.v1.cri".registry.configs]
+                  [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.10.2:5001".tls]
+                    insecure_skip_verify = true
+      clusterConfiguration:
+        imageRepository: 192.168.10.2:5001
+        etcd:
+          local:
+            imageRepository: 192.168.10.2:5001
+      initConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+      joinConfiguration:
+        nodeRegistration:
+          kubeletExtraArgs:
+            pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+      preKubeadmCommands:
+        - mkdir -p /etc/kubernetes/manifests && ctr images pull --plain-http=true
+          192.168.10.2:5001/kube-vip:v0.4.0 && ctr run --rm --net-host 192.168.10.2:5001/kube-vip:v0.4.0
+          vip /kube-vip manifest pod --arp --interface $(ip -4 -j route list default | jq -r .[0].dev)
+          --address 192.168.10.25 --controlplane --leaderElection > /etc/kubernetes/manifests/kube-vip.yaml &&
+          sed -i 's/ghcr.io\/kube-vip/192.168.10.2:5001/' /etc/kubernetes/manifests/kube-vip.yaml
+  ---
+  kind: KubeadmConfigTemplate
+  spec:
+    template:
+      spec:
+        files:
+          - path: /etc/containerd/config.toml
+            content: |
+              version = 2
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  sandbox_image = "192.168.10.2:5001/pause:3.2"
+                  [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+                    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.10.2:5001"]
+                    endpoint = ["http://192.168.10.2:5001"]
+                  [plugins."io.containerd.grpc.v1.cri".registry.configs]
+                    [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.10.2:5001".tls]
+                      insecure_skip_verify = true
+        joinConfiguration:
+          nodeRegistration:
+            kubeletExtraArgs:
+              pod-infra-container-image: 192.168.10.2:5001/pause:3.2
+  ```
+  - also the images in flannel
+    - `image: 192.168.10.2:5001/mirrored-flannelcni-flannel-cni-plugin:v1.1.0`
+    - `image: 192.168.10.2:5001/mirrored-flannelcni-flannel:v0.19.2`
