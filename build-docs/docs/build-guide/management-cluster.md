@@ -38,6 +38,9 @@ Set the CAPMVM version in your environment. First [check for the
 version which is compatible][compat] with the version of `flintlockd` your boards are running.
 In my case I am using Flintlock `v0.4.0`, so the latest compatible CAPMVM version is `v0.7.0`.
 
+```bash
+export CAPMVM_VERSION=v0.7.0
+```
 :::warning
 When checking your `flintlockd` version, be aware of [this bug][vers-bug].
 If you ran the `provision.sh` without setting either the `FLINTLOCK` env var
@@ -45,17 +48,8 @@ or the `--version` flag on the `flintlock` subcommand, then you will have the
 [latest version][fl-latest] installed.
 :::
 
-```bash
-export CAPMVM_VERSION=v0.7.0
-```
-
 Write the installation information to a `clusterctl` config file in the `cluster-api`
 repo.
-
-:::tip
-If you already have a `~/.cluster-api/clusterctl.yaml` file, move it to a backup
-first: `mv ~/.cluster-api/clusterctl.yaml ~/.cluster-api/clusterctl.yaml.bak`
-:::
 
 ```bash
 cat << EOF >~/.cluster-api/clusterctl.yaml
@@ -65,6 +59,11 @@ providers:
     type: "InfrastructureProvider"
 EOF
 ```
+
+:::tip
+If you already have a `~/.cluster-api/clusterctl.yaml` file, move it to a backup
+first: `mv ~/.cluster-api/clusterctl.yaml ~/.cluster-api/clusterctl.yaml.bak`
+:::
 
 Use `clusterctl` to initialise the management cluster.
 
