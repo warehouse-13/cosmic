@@ -299,7 +299,7 @@ nmcli con add type vlan con-name eth0.100 dev eth0 id 100 ip4 192.168.10.3/25
 # 100 is the switch VLAN id
 # 192.168.10.4 is the next ip in the VLAN subnet after the ones taken by the dell
 # and rp0
-cat <<EOF >/etc/dhcp/dhcpd.conf
+cat <<EOF >/etc/netplan/50-cloud-init.yaml
 network:
 	version: 2
 	ethernets:
