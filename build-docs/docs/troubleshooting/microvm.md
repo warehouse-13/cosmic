@@ -22,7 +22,7 @@ Steps:
 - Check that the host can ping the router. If not, and you have access to the router,
 	disconnect the device (turn it off) and remove the previous record from the router's
 	list. Reconnect the device and try pinging again.
-- Ensure that the correct interface has been configured in `/var/lib/flintlockd/config.yaml`.
+- Ensure that the correct interface has been configured in `/etc/opt/flintlockd/config.yaml`.
 	`parent-iface` should be set to a wired interface (eg `eth0`). Likewise, if you are
 	using flintlock in bridge mode, `bridge-name` should be a bridge which is mastered
 	to a wired parent interface. (_Note: I have really struggled to get a wire-backed bridge

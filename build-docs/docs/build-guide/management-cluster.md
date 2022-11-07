@@ -11,7 +11,11 @@ The Pi cluster will be created by [CAPI][capi]. We'll have the management cluste
 on your admin machine. You can use a more permanent cluster if you like, but
 here I am just using `kind`.
 
-Install [kind][kind], [docker][docker] and [clusterctl][clusterctl].
+Install:
+
+- [kind][kind]
+- [docker][docker]
+- [clusterctl][clusterctl]
 
 Create a new `kind` cluster.
 
@@ -34,15 +38,27 @@ Set the CAPMVM version in your environment. First [check for the
 version which is compatible][compat] with the version of `flintlockd` your boards are running.
 In my case I am using Flintlock `v0.4.0`, so the latest compatible CAPMVM version is `v0.7.0`.
 
+:::warning
+When checking your `flintlockd` version, be aware of [this bug][vers-bug].
+If you ran the `provision.sh` without setting either the `FLINTLOCK` env var
+or the `--version` flag on the `flintlock` subcommand, then you will have the
+[latest version][fl-latest] installed.
+:::
+
 ```bash
 export CAPMVM_VERSION=v0.7.0
 ```
 
 Write the installation information to a `clusterctl` config file in the `cluster-api`
-repo:
+repo.
+
+:::tip
+If you already have a `~/.cluster-api/clusterctl.yaml` file, move it to a backup
+first: `mv ~/.cluster-api/clusterctl.yaml ~/.cluster-api/clusterctl.yaml.bak`
+:::
 
 ```bash
-cat << EOF >>~/.cluster-api/clusterctl.yaml
+cat << EOF >~/.cluster-api/clusterctl.yaml
 providers:
   - name: "microvm"
     url: "https://github.com/weaveworks-liquidmetal/cluster-api-provider-microvm/releases/$CAPMVM_VERSION/infrastructure-components.yaml"
@@ -91,3 +107,5 @@ culprit and can be removed with `unset GITHUB_TOKEN`.
 [capmvm]: https://github.com/weaveworks-liquidmetal/cluster-api-provider-microvm
 [clusterctl]: https://cluster-api.sigs.k8s.io/user/quick-start.html#install-clusterctl
 [compat]: https://github.com/weaveworks-liquidmetal/cluster-api-provider-microvm/blob/main/docs/compatibility.md
+[vers-bug]: https://github.com/weaveworks-liquidmetal/flintlock/issues/508
+[fl-latest]: https://github.com/weaveworks-liquidmetal/flintlock/releases/latest

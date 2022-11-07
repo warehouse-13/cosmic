@@ -11,7 +11,7 @@ all.
 Flintlock logs can be watched by running:
 
 ```bash
-journatctl -fu flintlockd.service
+journalctl -fu flintlockd.service
 ```
 
 ### Snapshotter not loaded

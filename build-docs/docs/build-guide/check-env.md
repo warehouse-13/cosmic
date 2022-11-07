@@ -135,7 +135,7 @@ systemctl restart flintlockd.service
 
 ### Firecracker
 
-There wont be any firecracker process running yet. The binary should exist at `/usr/local/bin/firecraker`.
+There won't be any firecracker process running yet. The binary should exist at `/usr/local/bin/firecracker`.
 
 ## Create a test MicroVM
 

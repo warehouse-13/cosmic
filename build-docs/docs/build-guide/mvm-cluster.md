@@ -11,7 +11,7 @@ Set some config options in the environment
 ```bash
 export CLUSTER_NAME=lm-pi-homelab # or whatever
 export CONTROL_PLANE_MACHINE_COUNT=1
-export WORKER_MACHINE_COUNT=3 # don't go crazy here, consider your personal capacity
+export WORKER_MACHINE_COUNT=3 # try not to go crazy here, consider your personal capacity
 export KUBERNETES_VERSION=1.21.8
 export MVM_KERNEL_IMAGE=docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
 export MVM_ROOT_IMAGE=docker.io/claudiaberesford/capmvm-kubernetes-arm:1.21.8 # this tag should match the KUBERNETES_VERSION above
