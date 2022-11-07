@@ -1,0 +1,12 @@
+- dell
+- keyboard
+- monitor adapters (dell and pi)
+- hdmi cable
+- usb adapter
+- sd usb adapter
+- ethernet adapter
+- ethernet cables x4
+- cluster
+- switch
+- extension cable
+- wifi extender
