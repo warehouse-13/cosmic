@@ -19,7 +19,7 @@ that you plan to re-use, here is a list of the base requirements for this homela
 
 If you are going from scratch, this should get you started:
 
-- [Raspberry Pi board(s)][4b] with minimum 4GB RAM.
+- [Raspberry Pi board(s)][4b] with an **absolute minimum** of 4GB RAM. 8GB is best.
 	(2 or more boards is cooler but I know how hard it is to get these nowadays. I spent a day
 	aggressively sniping people on eBay to get mine.)
 	I have only tested on 4B Models but I guess in a pinch a 3B _might_ be okay, but
@@ -33,7 +33,7 @@ If you are going from scratch, this should get you started:
 - Case. Strictly speaking this is a 'nice to have'. But you can get some very cute, very
 	cheap cases, so it feels sad not to have one. [This one][case] is nice-looking,
 	comes with CPU fans, and is extendable, so you can stack more of the same cases
-	as you aqcuire more boards.
+	as you acquire more boards.
 - A way to flash microSD cards. If your PC/laptop does not have an SD port, you can
 	get tiny [USB card reader][sd-reader] which works very well.
 

@@ -94,7 +94,7 @@ the service without the `-dev` tag by running `./provision.sh containerd`, or ju
 use an existing service if you have it. Either way you'll need to:
 
 - update the reference to the socket that `flintlockd` has at `/etc/opt/flintlockd/config.yaml` and restart `flintlockd`
-- ensure you have the correct thinpool name in the containerd confid
+- ensure you have the correct thinpool name in the containerd config
 :::
 
 Containerd's config file will be at `/etc/containerd/config-dev.toml`.
@@ -107,7 +107,7 @@ Check this with:
 ```bash
 losetup -a | grep data
 
-dmsetup ls
+sudo dmsetup ls
 ```
 
 <details><summary>Output</summary>
@@ -127,15 +127,15 @@ The thinpool will **not** survive a reboot. If you need to switch off your Pi, g
 the pool back is easy:
 
 ```bash
-./provision.sh devpool
-systemctl restart containerd-dev.service
-systemctl restart flintlockd.service
+sudo ./provision.sh devpool
+sudo systemctl restart containerd-dev.service
+sudo systemctl restart flintlockd.service
 ```
 :::
 
 ### Firecracker
 
-There won't be any firecracker process running yet. The binary should exist at `/usr/local/bin/firecracker`.
+There won't be any `firecracker` processes running yet. The binary should exist at `/usr/local/bin/firecracker`.
 
 ## Create a test MicroVM
 
@@ -205,7 +205,7 @@ The Liquid Metal booted system is good to go after $UPTIME seconds
 The first time you do this may take a while. Depending on what RAM you have and what
 storage you are using, containerd will need time to download, unpack and snapshot
 the kernel and OS images. No boot logs will be written until **after** that.
-Subsequent creates will be much faster.
+Subsequent creates will be much faster, like within seconds.
 :::
 
 

@@ -31,7 +31,7 @@ Steps:
 - On the board run `tcpdump -i eth0 -vv` while creating a MicroVM. Look for dhcp
 	`Discover`, `Offer`, `Request` and `ACK` messages. If you see none, it means the
 	MicroVM cannot reach your dhcp server at all. If you see the first 2 but not the last,
-	it means the dhcp server has offered an IP by the client for some reason does not
+	it means the dhcp server has offered an IP but the client for some reason does not
 	receive or accept that. From here you are in the fun world of debugging dhcp
 	and network errors. (_Honestly after a couple of hours of this I table-flipped
 	and re-flashed my SD card with Ubuntu 20.04 which worked and I called it a day_.)
@@ -52,10 +52,12 @@ at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.stdout` are empty, try these s
 	"finished executing plan" controller=microvm execution_id=UID execution_time=4m3.498577899s num_steps=6 plan_name=microvm_create_update
 	```
 	If this is not present, find what the last action for that UID was.
-	:::note
+
+	:::info
 	On the first create with a new kernel or OS image, it can take a while for containerd
 	to pull it down.
 	:::
+
 - Check the MicroVM error logs at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.stderr`
 - Check the `firecracker` logs at `/var/lib/flintlock/vm/NS/NAME/UID/firecracker.log`
 

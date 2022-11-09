@@ -11,7 +11,13 @@ Set some config options in the environment
 ```bash
 export CLUSTER_NAME=lm-pi-homelab # or whatever
 export CONTROL_PLANE_MACHINE_COUNT=1
-export WORKER_MACHINE_COUNT=3 # try not to go crazy here, consider your personal capacity
+
+# try not to go crazy with this one, consider your personal capacity.
+# nodes tend to need 2GB of RAM to boot, with about 4GB considered enough
+# to run apps. MicroVMs can be over-committed, so on a board with 4GB RAM
+# you'll want no more than 2 nodes (control plane included).
+export WORKER_MACHINE_COUNT=3
+
 export KUBERNETES_VERSION=1.21.8
 export MVM_KERNEL_IMAGE=docker.io/claudiaberesford/flintlock-kernel-arm:5.10.77
 export MVM_ROOT_IMAGE=docker.io/claudiaberesford/capmvm-kubernetes-arm:1.21.8 # this tag should match the KUBERNETES_VERSION above
@@ -21,7 +27,7 @@ CAPMVM will use [`kube-vip`][kvip] to assign a virtual IP to the cluster.
 Choose an address from **outside** your router's DHCP pool. Mine runs from `192.168.1.64` to `.244`
 so I will use `192.168.1.63`.
 
-If you copied my [demo setup][demo], then use an ip from outside _that_ range
+If you copied my [demo setup][demo], then use an IP from outside _that_ range
 instead.
 
 ```bash
@@ -155,7 +161,7 @@ configmap/flannel-addon created
 
 ## Use
 
-After a moment, you can fetch the MicroVMs workload cluster's `kubeconfig` from
+After a moment, you can fetch the MicroVM workload cluster's `kubeconfig` from
 your management cluster. This `kubeconfig` is written to a secret by CAPI:
 
 ```bash

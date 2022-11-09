@@ -26,6 +26,8 @@ See the [troubleshooting page for MicroVMs][mvm-tr]. Common causes for failure a
 - The MicroVM cannot resolve addresses, so cannot pull required k8s images
 - The address chosen for the `kube-vip` is not free or accessible on that subnet
 - Some other kubelet issue has occurred and the service has not been able to start
+- You have overestimated your board's capacity and the MicroVM does not have enough
+  RAM for your node to run.
 
 ### Deleting a cluster hangs forever
 

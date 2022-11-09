@@ -66,7 +66,7 @@ chmod +x provision.sh
 Run the script:
 
 ```sh
-./provision.sh all -y \
+sudo ./provision.sh all -y \
   --dev \
   --insecure \
   --grpc-address 0.0.0.0:9090

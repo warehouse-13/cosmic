@@ -33,7 +33,7 @@ to recreate this whenever you reboot.
 
 To remedy:
 
-- Recreated the thinpool: `provision.sh devpool`
+- Recreate the thinpool: `sudo ./provision.sh devpool`
 - Restart containerd: `systemctl restart containerd-dev.service`
 - Restart flintlock: `systemctl restart flintlockd.service`
 
