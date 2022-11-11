@@ -1,0 +1,36 @@
+- intro
+	- what am I demoing
+		- rpi microvm cluster
+		- all the hacks
+- the build: what are the components and why
+	- 2 rpi 4Bs with 4gb
+		- talk about capacity vs benefits like availability
+	- dell xps
+	- image registry
+		- talk about the time this saves
+		- how to use one with a capi cluster
+		- show the catalog curl
+	- PoE hats
+		- talk about fewer wires and fan sounds
+	- managed switch
+		- talk about VLAN
+		- dhcp control
+		- private cluster ip control
+	- wifi extender
+		- talk about the wired hack for macvtap
+- start the demo (pre-prep workload cluster and manifest)
+	- walk through the manifest
+	- watch directories on boards
+	- apply
+- what is running and where
+	- rpi (what is happening after i run apply)
+		- flintlock
+		- containerd
+		- firecracker
+		- interfaces
+	- dell
+		- dhcp server
+		- NAT routing
+- continue demo
+	- show the nodes coming up
+	- show the pods in the new cluster

@@ -1,5 +1,6 @@
 - dell
 - keyboard
+- mouse
 - monitor adapters (dell and pi)
 - hdmi cable
 - usb adapter
