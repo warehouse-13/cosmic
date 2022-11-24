@@ -4,6 +4,15 @@ title: Liquid Metal RPi Homelab
 
 Take your Kubernetes homelab cluster to the next level with Liquid Metal MicroVMs.
 
+:::warning Important info
+These docs are moving to live under the official [Liquid Metal documentation][lm-docs].
+
+Demo specific notes will remain here, with the basic tutorial maintained in its
+new home.
+:::
+
+![rig](/img/rig1.jpg)
+
 :::tip Info
 This rig was built quickly and under budget for a Kubernetes community days
 demo. I am sharing it so that other people can have fun with the experiment.
@@ -18,8 +27,6 @@ which went wrong. I am continuing to fine-tune and improve, so will
 try to publish changes. If you come across something which could be better, feel
 free to contribute! :purple_heart:
 :::
-
-![rig](/img/rig1.jpg)
 
 ### Liquid Metal?
 

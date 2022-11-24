@@ -1,3 +1,10 @@
+- pre-demo
+	- reset boards
+	- check catalog
+	- check dhcp server
+	- check nat rules
+	- check vlan
+	- chack connectivity
 - intro
 	- what am I demoing
 		- rpi microvm cluster
@@ -18,10 +25,12 @@
 		- private cluster ip control
 	- wifi extender
 		- talk about the wired hack for macvtap
+- talk through terminal layout
+	- what is in which window
 - start the demo (pre-prep workload cluster and manifest)
-	- walk through the manifest
 	- watch directories on boards
 	- apply
+	- walk through the manifest
 - what is running and where
 	- rpi (what is happening after i run apply)
 		- flintlock
