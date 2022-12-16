@@ -17,32 +17,11 @@ const sidebars = {
     'intro',
     'shopping-list',
     {
-      type: 'category',
+      type: 'link',
       label: 'Build guide',
-      link: {
-        type: 'generated-index',
-      },
-      items: [
-        'build-guide/board-setup',
-        'build-guide/host-bootstrapping',
-        'build-guide/check-env',
-        'build-guide/management-cluster',
-        'build-guide/mvm-cluster',
-        'build-guide/demo-build',
-      ],
+      href: 'https://weaveworks-liquidmetal.github.io/site/docs/category/fun-raspberry-pi-homelab/',
     },
-    {
-      type: 'category',
-      label: 'Troubleshooting',
-      link: {
-        type: 'generated-index',
-      },
-      items: [
-        'troubleshooting/flintlock',
-        'troubleshooting/microvm',
-        'troubleshooting/capmvm',
-      ],
-    },
+    'demo-build',
   ],
 };
 

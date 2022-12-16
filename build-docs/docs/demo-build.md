@@ -1,5 +1,5 @@
 ---
-title: "Bonus: my exact demo build"
+title: "The demo build"
 ---
 
 The final pieces if you want to copy exactly what I had on stage.
@@ -19,13 +19,16 @@ The final pieces if you want to copy exactly what I had on stage.
 - Wifi extender with ethernet port
 - Extension cable
 
+![chain](/img/chain.jpg)
+
 To get this all to work the way I wanted it to, I needed a wired connection (`macvtap`
 interfaces cannot be created on a wireless interface) and I needed a way to reserve
 or predict a free internal IP. Both things hard to come by on stage, hence
 the extension cable and the wifi extender. These combined with everything else
 gave me a wired connection and a VLAN with an address pool just for me.
 
-![](/img/chain.jpg)
+![net](/img/net.png)
+_Diagram by [Josh Michielsen](https://github.com/jmickey)._
 
 # Configuration
 

@@ -4,29 +4,15 @@ title: Liquid Metal RPi Homelab
 
 Take your Kubernetes homelab cluster to the next level with Liquid Metal MicroVMs.
 
-:::warning Important info
-These docs are moving to live under the official [Liquid Metal documentation][lm-docs].
+As demoed at [Kubernetes Community Days UK 2022][kcduk].
 
-Demo specific notes will remain here, with the basic tutorial maintained in its
-new home.
+:::warning Important info
+The detailed build docs have moved to live under the official [Liquid Metal documentation][build-docs].
+
+These docs only contain demo specific notes.
 :::
 
 ![rig](/img/rig1.jpg)
-
-:::tip Info
-This rig was built quickly and under budget for a Kubernetes community days
-demo. I am sharing it so that other people can have fun with the experiment.
-
-There is absolutely no guarantee that any of this will work for you. If you are
-using this guide it means you are prepared to use it as a base, and that you are
-very happy (excited even!) to spend potentially lots of time debugging obscure
-networking and kernel errors.
-
-That said, I have done my best to capture everything thing I did, and everything
-which went wrong. I am continuing to fine-tune and improve, so will
-try to publish changes. If you come across something which could be better, feel
-free to contribute! :purple_heart:
-:::
 
 ### Liquid Metal?
 
@@ -47,9 +33,10 @@ So that's what Cosmic is.
 ### What are we building?
 
 Here is a very high-level diagram which shows what you will end up with if you
-follow these docs.
+follow [the build docs][build-docs].
 
 ![Liquid Metal high-level illustration](/img/high-level.jpg)
+_Diagram by [Josh Michielsen](https://github.com/jmickey)._
 
 ### Why cosmic?
 
@@ -58,3 +45,5 @@ Bonus points if you got the Disney reference.
 ![Alt Text](https://media.tenor.com/C7BweO_X39sAAAAd/aladdin-animated.gif)
 
 [lm-docs]: https://weaveworks-liquidmetal.github.io/site/
+[build-docs]: https://weaveworks-liquidmetal.github.io/site/docs/tutorial-rpi/intro/
+[kcduk]: https://www.youtube.com/watch?v=8GjFLRpyilw&list=PLX3geWFOgXozvW1avyeZfgPJXrWrzHgYV&index=29&ab_channel=KubernetesCommunityDaysUK
